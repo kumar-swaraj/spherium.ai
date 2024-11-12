@@ -58,9 +58,11 @@ export const Footer = () => {
                 className="text-xs font-bold uppercase tracking-widest text-gray-400"
                 onClick={(e) => {
                   e.preventDefault();
-                  const element = document.querySelector(item.href);
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                  if(item.href !== '#') {
+                    const element = document.querySelector(item.href);
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }
                 }}
               >

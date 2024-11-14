@@ -1,3 +1,4 @@
+'use client';
 import dockerLogo from '@/assets/images/docker-logo.png';
 import figmaLogo from '@/assets/images/figma-logo.png';
 import gcpLogo from '@/assets/images/gcp-logo.png';
@@ -13,6 +14,7 @@ import SectionBorder from '@/components/SectionBorder';
 import SectionContent from '@/components/SectionContent';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const features = [
@@ -100,15 +102,68 @@ export const Features = () => {
                     <Logo className="size-24" />
                   </div>
                   {logos.map(({ alt, rotate, src }) => (
-                    <div
+                    <motion.div
                       key={alt}
                       className="absolute inset-0"
-                      style={{ transform: `rotate(${rotate}deg)` }}
+                      initial={{
+                        rotate,
+                      }}
+                      animate={{
+                        rotate: [
+                          rotate,
+                          rotate + 45,
+                          rotate + 45,
+                          rotate + 90,
+                          rotate + 90,
+                          rotate + 135,
+                          rotate + 135,
+                          rotate + 180,
+                          rotate + 180,
+                          rotate + 225,
+                          rotate + 225,
+                          rotate + 270,
+                          rotate + 270,
+                          rotate + 315,
+                          rotate + 315,
+                          rotate + 360,
+                          rotate + 360,
+                        ],
+                      }}
+                      transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                      }}
                     >
-                      <div
+                      <motion.div
                         className="absolute left-0 top-1/2 inline-flex size-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border border-[var(--color-border)] bg-gray-950 md:size-14"
-                        style={{
-                          transform: `translate(-50%, -50%) rotate(-${rotate}deg)`,
+                        initial={{
+                          translate: '-50% -50%',
+                          rotate: -rotate,
+                        }}
+                        animate={{
+                          rotate: [
+                            -rotate,
+                            -rotate - 45,
+                            -rotate - 45,
+                            -rotate - 90,
+                            -rotate - 90,
+                            -rotate - 135,
+                            -rotate - 135,
+                            -rotate - 180,
+                            -rotate - 180,
+                            -rotate - 225,
+                            -rotate - 225,
+                            -rotate - 270,
+                            -rotate - 270,
+                            -rotate - 315,
+                            -rotate - 315,
+                            -rotate - 360,
+                            -rotate - 360,
+                          ],
+                        }}
+                        transition={{
+                          duration: 10,
+                          repeat: Infinity,
                         }}
                       >
                         <Image
@@ -116,8 +171,8 @@ export const Features = () => {
                           alt={alt}
                           className="size-6 md:size-9"
                         />
-                      </div>
-                    </div>
+                      </motion.div>
+                    </motion.div>
                   ))}
                 </div>
               </div>

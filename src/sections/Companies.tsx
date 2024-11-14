@@ -57,7 +57,7 @@ export const Companies = () => {
                 className="flex flex-none gap-18 px-9 md:gap-36 md:px-18"
               >
                 {[...companies, ...companies].map(
-                  ({ name, logo: Logo }, arrIndex) => (
+                  ({ logo: Logo }, arrIndex) => (
                     <div key={arrIndex}>
                       <Logo className="h-8" />
                     </div>

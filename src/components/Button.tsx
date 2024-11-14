@@ -1,5 +1,12 @@
-import React, { PropsWithChildren } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import {
+  animate,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+} from 'framer-motion';
 
 const button = cva(
   'text-xs tracking-widest uppercase font-bold h-10 px-6 rounded-lg',
@@ -26,15 +33,41 @@ interface ButtonProps
     VariantProps<typeof button> {}
 
 export default function Button({
+  block = false,
+  variant = 'primary',
   className,
-  variant,
-  block,
   children,
-  ...props
-}: PropsWithChildren<ButtonProps>) {
+  // ...props
+}: ButtonProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const angle = useMotionValue(45);
+  const background = useMotionTemplate`
+    linear-gradient(var(--color-gray-950),var(--color-gray-950)) padding-box, conic-gradient(from ${angle}deg,var(--color-violet-400),var(--color-fuchsia-400),var(--color-amber-300),var(--color-teal-300),var(--color-violet-400)) border-box
+  `;
+
+  useEffect(() => {
+    if (isHovered) {
+      animate(angle, angle.get() + 360, {
+        duration: 1,
+        ease: 'linear',
+        repeat: Infinity,
+      });
+    } else {
+      animate(angle, 45, { duration: 0.5 });
+    }
+  }, [isHovered, angle]);
+
   return (
-    <button className={button({ block, variant, className })} {...props}>
+    <motion.button
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={button({ block, variant, className })}
+      style={variant === 'primary' ? { background } : undefined}
+      // {...props}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }
+
+// ...props ---> raising some type issues while using it with motion.button
